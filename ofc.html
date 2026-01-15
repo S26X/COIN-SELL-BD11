@@ -16,390 +16,132 @@
            ========================================= */
         :root { 
     --primary: #22c55e; 
-    --bg: #0f172a;           /* গাঢ় নীলচে কালো ব্যাকগ্রাউন্ড */
-    --card: #1e293b;         /* কার্ডের জন্য হালকা কালো */
-    --text: #f1f5f9;         /* সাদাটে টেক্সট */
+    --bg: #0f172a;        /* Deep Dark Background */
+    --card: #1e293b;      /* Slate Card Background */
+    --text: #f1f5f9;      /* Light Text */
     --p-blue: #3b82f6; 
     --danger: #ef4444; 
     --success: #10b981; 
     --warning: #f59e0b; 
-    --border: #334155;       /* বর্ডার কালার */
-}
-        * { box-sizing: border-box; font-family: 'Urbanist', sans-serif; -webkit-tap-highlight-color: transparent; }
-       body { 
-    background: var(--bg); 
-    color: var(--text); 
-    font-family: 'Urbanist', sans-serif; 
+    --border: #334155;    /* Subtle Dark Border */
 }
 
-/* ইনপুট ফিল্ডগুলো ডার্ক করা */
-input, select, textarea {
-    background: #334155 !important;
-    border: 1px solid var(--border) !important;
-    color: #ffffff !important;
-}
+* { box-sizing: border-box; font-family: 'Urbanist', sans-serif; -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg); margin: 0; padding: 15px; padding-bottom: 120px; color: var(--text); }
 
-/* পপআপ বা মোডাল ডার্ক করা */
-.modal-content, .popup {
-    background: var(--card) !important;
-    color: var(--text) !important;
-}
+/* LOADING SCREEN */
+#loading { position: fixed; inset: 0; background: #0f172a; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 0.5s; }
+.light-box { position: relative; width: 130px; height: 130px; background: #1e293b; border-radius: 35px; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+.light-box::before { content: ''; position: absolute; width: 200%; height: 200%; background: conic-gradient(transparent, transparent, transparent, #3b82f6); animation: rotate 1.5s linear infinite; }
+@keyframes rotate { 100% { transform: rotate(360deg); } }
+.inner-img { position: absolute; inset: 4px; background: #1e293b; border-radius: 32px; z-index: 2; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.inner-img img { width: 100%; height: 100%; object-fit: cover; }
+.loading-title { margin-top: 25px; font-size: 22px; font-weight: 900; color: #f1f5f9; text-transform: uppercase; letter-spacing: 1px; }
 
-   /* =========================================
-   ULTRA MODERN DARK LOADING SCREEN
-   ========================================= */
-#loading { 
-    position: fixed; 
-    inset: 0; 
-    background: #020617; /* Deep Dark Background */
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    z-index: 10000; 
-    transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
-}
+/* USER UI */
+.help-btn { position: fixed; top: 20px; right: 20px; width: 45px; height: 45px; background: var(--card); border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 22px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 1000; border: 1.5px solid var(--border); color: #fff; }
+.profile-card { background: linear-gradient(135deg, #1d4ed8, #7c3aed); border-radius: 25px; padding: 22px; color: white; display: flex; align-items: center; margin-bottom: 15px; margin-top: 60px; }
+.user-avatar { width: 60px; height: 60px; border-radius: 18px; border: 2px solid rgba(255,255,255,0.2); object-fit: cover; }
+.action-card { background: var(--card); border-radius: 24px; padding: 16px; margin-bottom: 12px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: inherit; }
+.icon-box { width: 45px; height: 45px; border-radius: 15px; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 20px; }
 
-/* লোগোর চারপাশের এনার্জি রিং */
-.loader-wrapper {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.coin-card { background: var(--card); border-radius: 24px; padding: 20px; margin-bottom: 15px; border: 1.5px solid var(--border); position: relative; }
+.coin-card.offline { opacity: 0.5; filter: grayscale(0.8); pointer-events: none; }
+.status-badge { position: absolute; top: 20px; right: 20px; padding: 5px 12px; border-radius: 10px; font-size: 10px; font-weight: 900; }
+.status-online { background: #064e3b; color: #6ee7b7; }
+.status-offline { background: #7f1d1d; color: #fca5a5; }
 
-.ring {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top: 3px solid #3b82f6;
-    animation: rotate-ring 1.5s linear infinite;
-}
+.rate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+.rate-box { background: #0f172a; padding: 12px; border-radius: 18px; text-align: center; border: 1px solid var(--border); }
+.rate-box small { font-size: 9px; color: #94a3b8; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
+.rate-val { font-size: 16px; font-weight: 800; color: #fff; }
 
-.ring::before {
-    content: '';
-    position: absolute;
-    inset: 10px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-bottom: 3px solid #8b5cf6;
-    animation: rotate-ring 2s linear reverse infinite;
-}
+/* MODALS */
+.modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); display: none; align-items: flex-end; z-index: 2000; }
+.bottom-sheet { background: #1e293b; width: 100%; border-radius: 40px 40px 0 0; padding: 30px; transform: translateY(100%); transition: 0.4s; overflow-y: auto; max-height: 90vh; color: #fff; }
+.modal-mask.active .bottom-sheet { transform: translateY(0); }
+.form-input { width: 100%; background: #0f172a; border: 1.5px solid var(--border); padding: 16px; border-radius: 20px; font-size: 16px; font-weight: 700; margin-bottom: 15px; outline: none; color: #fff; }
+.btn-submit { background: #2563eb; color: white; border: none; width: 100%; padding: 18px; border-radius: 20px; font-size: 17px; font-weight: 800; cursor: pointer; }
 
-/* লোগো বক্স */
-.logo-center {
-    width: 90px;
-    height: 90px;
-    background: #1e293b;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 10;
-}
+.nav-dock { position: fixed; bottom: 20px; left: 20px; right: 20px; height: 75px; background: #1e293b; border-radius: 35px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4); z-index: 1001; border: 1px solid var(--border); }
+.nav-tab { border: none; background: none; color: #64748b; font-size: 24px; width: 50px; height: 50px; border-radius: 18px; }
+.nav-tab.active { background: var(--p-blue); color: white; }
 
-.logo-center img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: pulse-logo 2s ease-in-out infinite;
-}
-
-/* লোডিং টেক্সট */
-.loading-text {
-    margin-top: 40px;
-    text-align: center;
-}
-
-.loading-text h2 {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 900;
-    letter-spacing: 5px;
-    margin: 0;
-    text-transform: uppercase;
-    background: linear-gradient(to right, #3b82f6, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.progress-bar {
-    width: 120px;
-    height: 4px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
-    margin-top: 15px;
-    overflow: hidden;
-    position: relative;
-}
-
-.progress-line {
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to right, #3b82f6, #8b5cf6);
-    border-radius: 10px;
-    animation: loading-bar 1.5s infinite ease-in-out;
-}
-
-/* Animations */
-@keyframes rotate-ring {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes pulse-logo {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
-}
-
-@keyframes loading-bar {
-    0% { left: -50%; }
-    100% { left: 100%; }
-}
-
-        /* USER UI */
-        /* =========================================
-   DARK HELP BUTTON (Top Right)
-   ========================================= */
-.help-btn { 
-    position: fixed; 
-    top: 20px; 
-    right: 20px; 
-    width: 45px; 
-    height: 45px; 
-    background: rgba(30, 41, 59, 0.8); /* ডার্ক গ্লাস ইফেক্ট */
-    backdrop-filter: blur(10px); 
-    border-radius: 15px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    text-decoration: none; 
-    font-size: 22px; 
-    color: #f59e0b; /* হেল্প আইকনের জন্য গোল্ডেন/অ্যাম্বার কালার */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
-    z-index: 1000; 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    transition: all 0.3s ease;
-}
-
-.help-btn:hover {
-    transform: scale(1.1);
-    background: #f59e0b;
-    color: #ffffff;
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
-    border: none;
-}
-        .profile-card { background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 25px; padding: 22px; color: white; display: flex; align-items: center; margin-bottom: 15px; margin-top: 60px; }
-        .user-avatar { width: 60px; height: 60px; border-radius: 18px; border: 2px solid rgba(255,255,255,0.3); object-fit: cover; }
-        .action-card { background: var(--card); border-radius: 24px; padding: 16px; margin-bottom: 12px; border: 1.5px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: inherit; }
-        .icon-box { width: 45px; height: 45px; border-radius: 15px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        
-        .coin-card { background: var(--card); border-radius: 24px; padding: 20px; margin-bottom: 15px; border: 1.5px solid #e2e8f0; position: relative; }
-        .coin-card.offline { opacity: 0.6; filter: grayscale(0.5); pointer-events: none; }
-        .status-badge { position: absolute; top: 20px; right: 20px; padding: 5px 12px; border-radius: 10px; font-size: 10px; font-weight: 900; }
-        .status-online { background: #dcfce7; color: #166534; }
-        .status-offline { background: #fee2e2; color: #991b1b; }
-        
-        .rate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
-        .rate-box { background: #f8fafc; padding: 12px; border-radius: 18px; text-align: center; border: 1px solid #f1f5f9; }
-        .rate-box small { font-size: 9px; color: #94a3b8; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
-        .rate-val { font-size: 16px; font-weight: 800; }
-
-        /* MODALS */
-        .modal-mask { position: fixed; inset: 0; background: rgba(15,23,42,0.5); backdrop-filter: blur(8px); display: none; align-items: flex-end; z-index: 2000; }
-        .bottom-sheet { background: white; width: 100%; border-radius: 40px 40px 0 0; padding: 30px; transform: translateY(100%); transition: 0.4s; overflow-y: auto; max-height: 90vh; }
-        .modal-mask.active .bottom-sheet { transform: translateY(0); }
-        .form-input { width: 100%; background: #f1f5f9; border: none; padding: 16px; border-radius: 20px; font-size: 16px; font-weight: 700; margin-bottom: 15px; outline: none; }
-        .btn-submit { background: #2563eb; color: white; border: none; width: 100%; padding: 18px; border-radius: 20px; font-size: 17px; font-weight: 800; cursor: pointer; }
-
-        /* =========================================
-   DARK NAV DOCK (Updated)
-   ========================================= */
-.nav-dock { 
-    position: fixed; 
-    bottom: 20px; 
-    left: 20px; 
-    right: 20px; 
-    height: 75px; 
-    background: rgba(30, 41, 59, 0.9); /* গাঢ় নীলচে কালো */
-    backdrop-filter: blur(15px); /* ঝাপসা ইফেক্ট */
-    border-radius: 35px; 
-    display: flex; 
-    justify-content: space-around; 
-    align-items: center; 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
-    z-index: 1001; 
-    border: 1px solid rgba(255, 255, 255, 0.08); /* হালকা বর্ডার */
-}
-
-.nav-tab { 
-    border: none; 
-    background: none; 
-    color: #64748b; /* আন-সিলেক্টেড আইকন কালার */
-    font-size: 24px; 
-    width: 50px; 
-    height: 50px; 
-    border-radius: 18px; 
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.nav-tab.active { 
-    background: var(--p-blue); 
-    color: white; 
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); /* নীল গ্লো */
-    transform: translateY(-5px); /* একটু উপরে উঠে থাকবে */
-}
-
-        /* ADMIN BUTTON */
-        #admin-shortcut { display: none; margin-bottom: 15px; padding: 0 5px; }
-        .admin-entry-btn { width: 100%; padding: 18px; background: #ef4444; color: white; border: none; border-radius: 22px; font-weight: 900; box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2); font-size: 14px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
+/* ADMIN BUTTON */
+#admin-shortcut { display: none; margin-bottom: 15px; padding: 0 5px; }
+.admin-entry-btn { width: 100%; padding: 18px; background: #ef4444; color: white; border: none; border-radius: 22px; font-weight: 900; box-shadow: 0 10px 20px rgba(239, 68, 68, 0.4); font-size: 14px; animation: pulse 2s infinite; }
 
        /* =========================================
            [SECTION 2] UPDATED MODERN ADMIN UI
            ========================================= */
-        /* =========================================
-   DARK ADMIN MASTER UI (Updated)
-   ========================================= */
-#admin-master-ui { 
-    position: fixed; 
-    inset: 0; 
-    background: #0f172a; /* গাঢ় ব্যাকগ্রাউন্ড */
-    z-index: 100000; 
-    display: none; 
-    overflow-y: auto; 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-    color: #f1f5f9; 
+        #admin-master-ui { position: fixed; inset: 0; background: #f8fafc; z-index: 100000; display: none; overflow-y: auto; font-family: 'Plus Jakarta Sans', sans-serif; }
+        #admin-lock-screen { position: fixed; inset: 0; background: #0f172a; display: flex; align-items: center; justify-content: center; z-index: 100001; flex-direction: column; color: white; }
+        
+        .adm-container { max-width: 500px; margin: 0 auto; padding: 15px; } 
+
+        /* Statistics Row - Single Box (Total User Removed) */
+        .adm-stats-row { display: block; margin-bottom: 15px; }
+        .adm-stat-box { 
+            background: white; padding: 20px; border-radius: 20px; 
+            border: 1px solid #e2e8f0; text-align: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
+        }
+        .adm-stat-box small { font-weight: 800; color: #64748b; font-size: 10px; display: block; text-transform: uppercase; letter-spacing: 1px;}
+        .adm-stat-box h3 { margin: 5px 0 0; font-size: 28px; color: #1e293b; }
+
+        /* Modern Horizontal Tab Menu (Pashapashi) */
+        .adm-tab-menu { 
+            display: flex; 
+            background: #f1f5f9; 
+            border-radius: 15px; 
+            padding: 5px; 
+            margin-bottom: 20px; 
+            gap: 5px;
+            border: 1px solid #e2e8f0;
+        } 
+        .adm-tab { 
+            flex: 1; 
+            text-align: center; 
+            padding: 12px 5px; 
+            font-size: 11px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            border-radius: 12px; 
+            color: #64748b; 
+            transition: 0.3s;
+        } 
+        .adm-tab.active { 
+    background: #ffffff !important; 
+    color: #2563eb !important; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
 }
 
-#admin-lock-screen { 
-    position: fixed; 
-    inset: 0; 
-    background: #020617; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    z-index: 100001; 
-    flex-direction: column; 
-    color: white; 
-}
+        /* Order Card - Grid Design */
+        .adm-order-box { 
+            background: white; border-radius: 20px; padding: 18px; 
+            margin-bottom: 15px; border: 1px solid #f1f5f9; 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.02);
+            position: relative; overflow: hidden;
+        }
+        .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .order-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        .grid-item { background: #f8fafc; padding: 12px; border-radius: 15px; border: 1px solid #f1f5f9; }
+        .grid-item small { display: block; color: #94a3b8; font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 3px; }
+        .grid-item b { font-size: 11px; color: #1e293b; }
 
-.adm-container { max-width: 500px; margin: 0 auto; padding: 15px; } 
+        .status-badge { font-size: 10px; font-weight: 900; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; }
 
-/* Statistics Box - Dark Mode */
-.adm-stats-row { display: block; margin-bottom: 15px; }
-.adm-stat-box { 
-    background: #1e293b; /* কার্ড ব্যাকগ্রাউন্ড */
-    padding: 20px; 
-    border-radius: 20px; 
-    border: 1px solid #334155; 
-    text-align: center; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
-}
-.adm-stat-box small { font-weight: 800; color: #94a3b8; font-size: 10px; display: block; text-transform: uppercase; letter-spacing: 1px;}
-.adm-stat-box h3 { margin: 5px 0 0; font-size: 28px; color: #ffffff; }
-
-/* Modern Horizontal Tab Menu (Dark) */
-.adm-tab-menu { 
-    display: flex; 
-    background: #1e293b; 
-    border-radius: 15px; 
-    padding: 5px; 
-    margin-bottom: 20px; 
-    gap: 5px;
-    border: 1px solid #334155;
-} 
-.adm-tab { 
-    flex: 1; 
-    text-align: center; 
-    padding: 12px 5px; 
-    font-size: 11px; 
-    font-weight: 800; 
-    cursor: pointer; 
-    border-radius: 12px; 
-    color: #94a3b8; 
-    transition: 0.3s;
-} 
-.adm-tab.active { 
-    background: #3b82f6 !important; /* একটিভ ট্যাব নীল */
-    color: #ffffff !important; 
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); 
-}
-
-/* Order Card - Dark Design */
-.adm-order-box { 
-    background: #1e293b; 
-    border-radius: 20px; 
-    padding: 18px; 
-    margin-bottom: 15px; 
-    border: 1px solid #334155; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    position: relative; 
-    overflow: hidden;
-}
-.grid-item { 
-    background: #0f172a; /* আইটেম ব্যাকগ্রাউন্ড আরও গাঢ় */
-    padding: 12px; 
-    border-radius: 15px; 
-    border: 1px solid #334155; 
-}
-.grid-item small { color: #64748b; }
-.grid-item b { color: #f1f5f9; }
-
-/* Forms & Inputs (Dark) */
-.adm-input { 
-    width: 100%; 
-    padding: 12px; 
-    border-radius: 12px; 
-    border: 1px solid #334155; 
-    margin-bottom: 10px; 
-    font-size: 13px; 
-    background: #0f172a; 
-    color: white;
-}
-.adm-btn { 
-    border: none; 
-    padding: 12px; 
-    border-radius: 12px; 
-    font-weight: 800; 
-    cursor: pointer; 
-    width: 100%; 
-    transition: 0.2s;
-    background: #3b82f6;
-    color: white;
-}
-.adm-btn:hover {
-    background: #2563eb;
-    transform: translateY(-2px);
-}
+        /* Forms & Buttons */
+        .adm-input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 10px; font-size: 13px; background: #fcfcfc; }
+        .adm-btn { border: none; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.2s; }
     </style>
 </head>
 <body>
 
 <div id="loading">
-    <div class="loader-wrapper">
-        <div class="ring"></div>
-        <div class="logo-center">
-            <a href="https://ibb.co.com/yc3XXB9q"><img src="https://i.ibb.co.com/ksdxx67X/photo-2026-01-15-18-03-01.jpg" alt="photo-2026-01-15-18-03-01" border="0" /></a>
-        </div>
-    </div>
-    <div class="loading-text">
-        <h2>LOADING</h2>
-        <div class="progress-bar">
-            <div class="progress-line"></div>
-        </div>
-    </div>
+    <div class="light-box"><div class="inner-img"><img src="https://i.ibb.co.com/ksdxx67X/photo-2026-01-15-18-03-01.jpg"></div></div>
+    <div class="loading-title">COIN SELL BD</div>
 </div>
 
 <div id="user-app-interface" style="display:none;">
@@ -616,11 +358,12 @@ input, select, textarea {
     const firebaseConfig = {
         apiKey: "AIzaSyB5LJ-mXCHhAtciuGm1owHgiYIDLuEM99Q",
         authDomain: "coin-sell-bd.firebaseapp.com",
-        databaseURL: "https://coin-sell-bd-default-rtdb.firebaseio.com", 
+        databaseURL: "https://coin-sell-bd-default-rtdb.firebaseio.com",
         projectId: "coin-sell-bd",
         storageBucket: "coin-sell-bd.firebasestorage.app",
         messagingSenderId: "516956883825",
         appId: "1:516956883825:web:b1a5a4f03a345c098f44d0"
+
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
@@ -911,7 +654,7 @@ function fetchLeaderboard() {
         // ২. Top 10 Filter: Shudhu prothom 10 jonke nibe
         const top10 = users.slice(0, 10);
 
-        let html = "<h3 style='margin: 15px 5px;'>🏆 Top 10 Earners</h3>";
+        let html = "<h3 style='margin: 15px 5px;'>🏆 Top 10 Sellers</h3>";
         
         if (top10.length === 0) {
             html += "<p style='text-align:center; padding:20px; color:#94a3b8;'>No earners yet.</p>";
@@ -1293,3 +1036,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
+
